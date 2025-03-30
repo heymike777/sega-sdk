@@ -280,13 +280,13 @@ export class TxBuilder {
         if (this.owner?.isKeyPair) {
           const txId = sendAndConfirm
             ? await sendAndConfirmTransaction(
-              this.connection,
-              transaction,
-              this.signers.find((s) => s.publicKey.equals(this.owner!.publicKey))
-                ? this.signers
-                : [...this.signers, this.owner.signer!],
-              { skipPreflight },
-            )
+                this.connection,
+                transaction,
+                this.signers.find((s) => s.publicKey.equals(this.owner!.publicKey))
+                  ? this.signers
+                  : [...this.signers, this.owner.signer!],
+                { skipPreflight },
+              )
             : await this.connection.sendRawTransaction(transaction.serialize(), { skipPreflight });
 
           return {
@@ -299,7 +299,7 @@ export class TxBuilder {
           if (this.signers.length) {
             for (const item of txs) {
               try {
-                item.sign(...this.signers)
+                item.sign(...this.signers);
               } catch (e) {
                 //
               }
@@ -405,7 +405,7 @@ export class TxBuilder {
               i++;
               let confirmed = false;
               // eslint-disable-next-line
-              let intervalId: NodeJS.Timer | null = null,
+              let intervalId: any = null,
                 subSignatureId: number | null = null;
               const cbk = (signatureResult: SignatureResult): void => {
                 intervalId !== null && clearInterval(intervalId);
@@ -566,7 +566,7 @@ export class TxBuilder {
           if (this.signers.length) {
             for (const item of txs) {
               try {
-                item.sign(this.signers)
+                item.sign(this.signers);
               } catch (e) {
                 //
               }
@@ -664,7 +664,7 @@ export class TxBuilder {
 
               let confirmed = false;
               // eslint-disable-next-line
-              let intervalId: NodeJS.Timer | null = null,
+              let intervalId: any = null,
                 subSignatureId: number | null = null;
               const cbk = (signatureResult: SignatureResult): void => {
                 intervalId !== null && clearInterval(intervalId);
@@ -745,9 +745,9 @@ export class TxBuilder {
       computeBudgetConfig
         ? addComputeBudget(computeBudgetConfig)
         : {
-          instructions: [],
-          instructionTypes: [],
-        };
+            instructions: [],
+            instructionTypes: [],
+          };
 
     const signerKey: { [key: string]: Signer } = this.signers.reduce(
       (acc, cur) => ({ ...acc, [cur.publicKey.toBase58()]: cur }),
@@ -912,7 +912,7 @@ export class TxBuilder {
 
               let confirmed = false;
               // eslint-disable-next-line
-              let intervalId: NodeJS.Timer | null = null,
+              let intervalId: any = null,
                 subSignatureId: number | null = null;
               const cbk = (signatureResult: SignatureResult): void => {
                 intervalId !== null && clearInterval(intervalId);
@@ -1016,9 +1016,9 @@ export class TxBuilder {
       computeBudgetConfig
         ? addComputeBudget(computeBudgetConfig)
         : {
-          instructions: [],
-          instructionTypes: [],
-        };
+            instructions: [],
+            instructionTypes: [],
+          };
 
     const blockHash = await getRecentBlockHash(this.connection, this.blockhashCommitment);
 
@@ -1198,7 +1198,7 @@ export class TxBuilder {
 
               let confirmed = false;
               // eslint-disable-next-line
-              let intervalId: NodeJS.Timer | null = null,
+              let intervalId: any = null,
                 subSignatureId: number | null = null;
               const cbk = (signatureResult: SignatureResult): void => {
                 intervalId !== null && clearInterval(intervalId);
